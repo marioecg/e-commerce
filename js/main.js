@@ -50,14 +50,21 @@ dropDown.addEventListener('mouseenter', () => {
 const hamburger = document.querySelector('.c-ham-wrapper');
 const body = document.querySelector('body');
 let isMenuOpen = false;
+const menuLinks = document.querySelectorAll('.c-menu__nav a');
+
+function closeMenu() {
+
+  body.classList.remove('menu-open-active');
+  setTimeout(() => body.classList.remove('menu-open'), 500);
+  isMenuOpen = false;
+
+}
 
 function handleMenu() {
 
   if (isMenuOpen) {
 
-    body.classList.remove('menu-open-active');
-    setTimeout(() => body.classList.remove('menu-open'), 500);
-    isMenuOpen = false;
+    closeMenu();
 
   } else {
 
@@ -85,15 +92,21 @@ function handleMenu() {
 
 hamburger.addEventListener('click', handleMenu);
 
+menuLinks.forEach(menuLink => {
+
+  menuLink.addEventListener('click', closeMenu);
+
+});
+
 /** Load page content via .fetch() when link is clicked and animate it  */
 
-let tchaikovskyLink = document.querySelector('#tchaikovsky-link');
-let mendelssohnLink = document.querySelector('#mendelssohn-link');
-let bruchLink = document.querySelector('#bruch-link');
-let sibeliusLink = document.querySelector('#sibelius-link');
-let brahmsLink = document.querySelector('#brahms-link');
-let beethovenLink = document.querySelector('#beethoven-link');
-let mozartLink = document.querySelector('#mozart-link');
+let tchaikovskyLink = document.querySelectorAll('.tchaikovsky-link');
+let mendelssohnLink = document.querySelectorAll('.mendelssohn-link');
+let bruchLink = document.querySelectorAll('.bruch-link');
+let sibeliusLink = document.querySelectorAll('.sibelius-link');
+let brahmsLink = document.querySelectorAll('.brahms-link');
+let beethovenLink = document.querySelectorAll('.beethoven-link');
+let mozartLink = document.querySelectorAll('.mozart-link');
 
 let linkArray = [tchaikovskyLink, mendelssohnLink, bruchLink, sibeliusLink, brahmsLink, beethovenLink, mozartLink];
 
@@ -160,8 +173,8 @@ function fetchPage(link, page) {
       let doc = new DOMParser().parseFromString(html, "text/html");
 
       anime({
-        targets: '.c-content__info, .c-content__composer',
-        translateX: 700,
+        targets: '.c-content__info, .c-content__composer, .c-content__image--fixed',
+        translateY: 700,
         opacity: 0,
         easing: 'easeInExpo',
         duration: 700,
@@ -176,7 +189,7 @@ function fetchPage(link, page) {
 
         anime({
           targets: '.new-content .c-content__info, .new-content .c-content__composer',
-          translateX: [-600, 0],
+          translateY: [-600, 0],
           delay: (el, i) => 100 * i,
           opacity: [0, 1],
           easing: 'easeOutExpo',
