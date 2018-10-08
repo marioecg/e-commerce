@@ -160,7 +160,7 @@ function fetchPage(link, page) {
       let doc = new DOMParser().parseFromString(html, "text/html");
 
       anime({
-        targets: '.text-section h1, .text-section p, .text-section div',
+        targets: '.c-content__info, .c-content__composer',
         translateX: 700,
         opacity: 0,
         easing: 'easeInExpo',
