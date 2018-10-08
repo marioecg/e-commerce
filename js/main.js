@@ -1,6 +1,6 @@
 /** Animations using anime.js */
 
-const dropDown = document.querySelector('#anime-dropdown')
+const dropDown = document.querySelector('#anime-dropdown');
 
 document.addEventListener('DOMContentLoaded', () => {
 
@@ -47,23 +47,23 @@ dropDown.addEventListener('mouseenter', () => {
 
 /** Open and close menu screen navigation */
 
-const hamburger = document.querySelector('.c-ham-wrapper')
-const body = document.querySelector('body')
-let isMenuOpen = false
+const hamburger = document.querySelector('.c-ham-wrapper');
+const body = document.querySelector('body');
+let isMenuOpen = false;
 
 function handleMenu() {
 
   if (isMenuOpen) {
 
-    body.classList.remove('menu-open-active')
-    setTimeout(() => body.classList.remove('menu-open'), 500)
-    isMenuOpen = false
+    body.classList.remove('menu-open-active');
+    setTimeout(() => body.classList.remove('menu-open'), 500);
+    isMenuOpen = false;
 
   } else {
 
-    body.classList.add('menu-open')
-    setTimeout(() => body.classList.add('menu-open-active'), 150)
-    isMenuOpen = true
+    body.classList.add('menu-open');
+    setTimeout(() => body.classList.add('menu-open-active'), 150);
+    isMenuOpen = true;
 
     anime.timeline({
       easing: 'easeOutExpo',
@@ -83,53 +83,55 @@ function handleMenu() {
   }
 }
 
-hamburger.addEventListener('click', handleMenu)
+hamburger.addEventListener('click', handleMenu);
 
 /** Load page content via .fetch() when link is clicked and animate it  */
 
-let tchaikovskyLink = document.querySelector('#tchaikovsky-link')
-let mendelssohnLink = document.querySelector('#mendelssohn-link')
-let bruchLink = document.querySelector('#bruch-link')
-let sibeliusLink = document.querySelector('#sibelius-link')
-let brahmsLink = document.querySelector('#brahms-link')
-let beethovenLink = document.querySelector('#beethoven-link')
-let mozartLink = document.querySelector('#mozart-link')
+let tchaikovskyLink = document.querySelector('#tchaikovsky-link');
+let mendelssohnLink = document.querySelector('#mendelssohn-link');
+let bruchLink = document.querySelector('#bruch-link');
+let sibeliusLink = document.querySelector('#sibelius-link');
+let brahmsLink = document.querySelector('#brahms-link');
+let beethovenLink = document.querySelector('#beethoven-link');
+let mozartLink = document.querySelector('#mozart-link');
 
-let linkArray = [tchaikovskyLink, mendelssohnLink, bruchLink, sibeliusLink, brahmsLink, beethovenLink, mozartLink]
+let linkArray = [tchaikovskyLink, mendelssohnLink, bruchLink, sibeliusLink, brahmsLink, beethovenLink, mozartLink];
 
 linkArray.forEach(eachLink => {
 
-  eachLink.addEventListener('click', () => {
+  eachLink.addEventListener('click', (e) => {
+
+    e.preventDefault();
 
     switch (eachLink) {
 
       case tchaikovskyLink:
-        fetchPage(eachLink, 'tchaikovsky.html')
-        break
+        fetchPage(eachLink, 'tchaikovsky.html');
+        break;
 
       case mendelssohnLink:
-        fetchPage(eachLink, 'mendelssohn.html')
-        break
+        fetchPage(eachLink, 'mendelssohn.html');
+        break;
 
       case bruchLink:
-        fetchPage(eachLink, 'bruch.html')
-        break
+        fetchPage(eachLink, 'bruch.html');
+        break;
 
       case sibeliusLink:
-        fetchPage(eachLink, 'sibelius.html')
-        break
+        fetchPage(eachLink, 'sibelius.html');
+        break;
 
       case brahmsLink:
-        fetchPage(eachLink, 'brahms.html')
-        break
+        fetchPage(eachLink, 'brahms.html');
+        break;
 
       case beethovenLink:
-        fetchPage(eachLink, 'beethoven.html')
-        break
+        fetchPage(eachLink, 'beethoven.html');
+        break;
 
       case mozartLink:
-        fetchPage(eachLink, 'mozart.html')
-        break
+        fetchPage(eachLink, 'mozart.html');
+        break;
 
     }
 
@@ -139,52 +141,47 @@ linkArray.forEach(eachLink => {
 
 function fetchPage(link, page) {
 
-  let baseURL = `${window.location.protocol}//${window.location.hostname}`
+  let baseURL = `${window.location.protocol}//${window.location.hostname}`;
 
   if (window.location.port) {
 
-    baseURL += `:${window.location.port}`
+    baseURL += `:${window.location.port}`;
 
   }
 
   fetch(`${baseURL}/${page}`)
-    .then(response => {
+    .then(function (response) {
 
-      return response.text
+      return response.text()
 
     })
-    .then(html => {
+    .then(function (html) {
 
-      let doc = new DOMParser().parseFromString(html, 'text/html')
+      let doc = new DOMParser().parseFromString(html, "text/html");
 
       anime({
-        targets: '.c-content__info, .c-content__image',
+        targets: '.text-section h1, .text-section p, .text-section div',
         translateX: 700,
         opacity: 0,
         easing: 'easeInExpo',
         duration: 700,
-        complete: anim => {
-
-          document.querySelector('.column-wrapper').remove()
-
+        complete: (anim) => {
+          document.querySelector('.column-wrapper').remove();
         }
-
       })
 
-      setTimeout(() => {
+      setTimeout(function () {
 
-        document.querySelector('body').insertBefore(doc.querySelector('.new-content'), document.querySelector('.c-footer'))
+        document.querySelector('body').insertBefore(doc.querySelector('.new-content'), document.querySelector('.gallery-nav'));
 
         anime({
-          targets: '.new-content .c-content__info, .new-content .c-content__image',
+          targets: '.new-content .c-content__info, .new-content .c-content__composer',
           translateX: [-600, 0],
           delay: (el, i) => 100 * i,
           opacity: [0, 1],
-          easing: 'easeOutExpo'
+          easing: 'easeOutExpo',
         })
 
-      }, 700)
-
+      }, 700);
     })
-
 }
