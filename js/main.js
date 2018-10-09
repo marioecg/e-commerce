@@ -110,47 +110,54 @@ let mozartLink = document.querySelectorAll('.mozart-link');
 
 let linkArray = [tchaikovskyLink, mendelssohnLink, bruchLink, sibeliusLink, brahmsLink, beethovenLink, mozartLink];
 
-linkArray.forEach(eachLink => {
+for (let i = 0; i < linkArray.length; i++) {
 
-  eachLink.addEventListener('click', (e) => {
+  linkArray[i].forEach(eachLink => {
 
-    e.preventDefault();
+    console.log({eachLink});
 
-    switch (eachLink) {
+    eachLink.addEventListener('click', (e) => {
 
-      case tchaikovskyLink:
-        fetchPage(eachLink, 'tchaikovsky.html');
-        break;
+      e.preventDefault();
 
-      case mendelssohnLink:
-        fetchPage(eachLink, 'mendelssohn.html');
-        break;
+      switch (eachLink.className) {
 
-      case bruchLink:
-        fetchPage(eachLink, 'bruch.html');
-        break;
+        case 'tchaikovsky-link':
+          fetchPage(eachLink, 'tchaikovsky.html');
+          break;
 
-      case sibeliusLink:
-        fetchPage(eachLink, 'sibelius.html');
-        break;
+        case 'mendelssohn-link':
+          fetchPage(eachLink, 'mendelssohn.html');
+          break;
 
-      case brahmsLink:
-        fetchPage(eachLink, 'brahms.html');
-        break;
+        case 'bruch-link':
+          fetchPage(eachLink, 'bruch.html');
+          break;
 
-      case beethovenLink:
-        fetchPage(eachLink, 'beethoven.html');
-        break;
+        case 'sibelius-link':
+          fetchPage(eachLink, 'sibelius.html');
+          break;
 
-      case mozartLink:
-        fetchPage(eachLink, 'mozart.html');
-        break;
+        case 'brahms-link':
+          fetchPage(eachLink, 'brahms.html');
+          break;
 
-    }
+        case 'beethoven-link':
+          fetchPage(eachLink, 'beethoven.html');
+          break;
+
+        case 'mozart-link':
+          fetchPage(eachLink, 'mozart.html');
+          break;
+
+      }
+
+    })
 
   })
 
-})
+}
+
 
 function fetchPage(link, page) {
 
