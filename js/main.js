@@ -114,8 +114,6 @@ for (let i = 0; i < linkArray.length; i++) {
 
   linkArray[i].forEach(eachLink => {
 
-    console.log({eachLink});
-
     eachLink.addEventListener('click', (e) => {
 
       e.preventDefault();
